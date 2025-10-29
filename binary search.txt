@@ -1,0 +1,476 @@
+ #include <stdio.h>
+#include <string.h>
+
+void linearSearchNumber(int ar[],int size,int nu)
+{
+	int i;
+	for(i=0;i<size;i++)
+	{
+		if(ar[i]==nu)
+			break;
+	}
+	if(i==size)
+		printf("Number %d is not found\n",nu);
+	else
+		printf("Number %d is found at %d location\n",nu,i+1);
+}
+
+void binarySearchNumber(int ar[],int size,int nu)
+{                             //ar[10][20][30][40][50][60][70][80][90][100]  nu=70   c=0, 1
+                              //   0    1  2    3  4    5   6  7   8    9   
+	int ub=size,lb=0,mid,c=0; // ub  lb  ub>lb mid ar[mid] ar[mid]==nu ar[mid]>nu ar[mid]<nu
+	while(ub>lb)              // 10  0   true  5       60     false       false      true
+	{                         // 10  6   true  8       90     false       true
+		mid=(lb+ub)/2;        // 8   6   true  7       80     false       true
+		if(nu==ar[mid])       // 7   6   true  6       70     true
+		{
+			c=1;
+			break;
+		}
+		else if(ar[mid]>nu)
+			ub=mid;
+		else if(ar[mid]<nu)
+			lb=mid+1;
+	}
+	if(c==0)
+		printf("Number %d is not found\n",nu);
+	else
+		printf("Number %d is found at %d location\n",nu,mid+1);
+}
+
+void linearSearchLetter(char ar[],char letter)
+{
+	int i;
+	for(i=0;ar[i]!='\0';i++)
+	{
+		if(ar[i]==letter)
+			break;
+	}
+	if(i==strlen(ar))
+		printf("Letter %c is not found\n",letter);
+	else
+		printf("Letter %c is found at %d location\n",letter,i+1);
+}
+
+void binarySearchLetter(char ar[],char letter)
+{
+	int ub=strlen(ar),lb=0,mid;
+	while(ub>=lb)
+	{
+		mid=(lb+ub)/2;
+		if(letter==ar[mid])
+			break;
+		else if(ar[mid]<letter)
+			ub=mid;
+		else if(ar[mid]>letter)
+			lb=mid+1;
+	}
+	if(ub<lb)
+		printf("Letter %c is not found\n",letter);
+	else
+		printf("Letter %c is found at %d location\n",letter,mid+1);
+}
+
+void linearSearchWord(char ar[][26],int size,char word[])
+{
+	int i;
+	for(i=0;i<size;i++)
+	{
+		if(strcmp(ar[i],word)==0)
+			break;
+	}
+	if(i==size)
+		printf("Word %s is not found\n",word);
+	else
+		printf("Word %s is found at %d location\n",word,i+1);
+
+}
+
+void binarySearchWord(char ar[][26],int size,char word[])
+{
+	int ub=size,lb=0,mid;
+	while(ub>=lb)
+	{
+		mid=(lb+ub)/2;
+		if(strcmp(ar[mid],word)==0)
+			break;
+		else if(strcmp(ar[mid],word)>0)
+			ub=mid;
+		else if(strcmp(ar[mid],word)<0)
+			lb=mid+1;
+	}
+	if(ub<lb)
+		printf("Word %s is not found\n",word);
+	else
+		printf("Word %s is found at %d location\n",word,mid+1);
+
+}
+
+void inputNumbers(int a[],int size)
+{
+	int i;
+	printf("Enter %d numbers",size);
+	for(i=0;i<size;i++)
+	{
+		scanf("%d",&a[i]);
+	}
+}
+
+void inputWord(char a[])
+{
+	printf("Enter a word ");
+	scanf("%s",a);
+}
+
+void inputWords(char a[][26],int size)
+{
+	int i;
+	printf("Enter %d Names ",size);
+	for(i=0;i<size;i++)
+	{
+		scanf("%s",a[i]);
+	}
+}
+
+int main()
+{
+	int numbers[5],ch,num,size=10;
+	char letter,words[5][26],word[26];
+	do
+	{
+		printf("\tSearch Menu\n1.Linear search for numbers\n2.Linear search for letters\n3.Linear search for words\n4.Binary search for numbers\n5.Binary search for letters\n6.Binary search for words\n7 Exit\nEnter your Choice\n");
+		scanf("%d",&ch);
+		fflush(stdin);
+		switch(ch)
+		{
+			case 1:
+				inputNumbers(numbers,size);
+				printf("Enter Number to search\n ");
+				scanf("%d",&num);
+				linearSearchNumber(numbers,size,num);
+				break;
+			case 2:
+				inputWord(word);
+				printf("Enter letter to search\n ");
+				scanf("%c",&letter);
+				scanf("%c",&letter);
+				linearSearchLetter(word,letter);
+				break;
+			case 3:
+				inputWords(words,size);
+				printf("Enter word to search\n ");
+				scanf("%s",word);
+				linearSearchWord(words,size,word);
+				break;
+			case 4:
+				inputNumbers(numbers,size);
+				printf("Enter Number to search\n ");
+				scanf("%d",&num);
+				binarySearchNumber(numbers,size,num);
+				break;
+			case 5:
+				inputWord(word);
+				printf("Enter letter to search\n ");
+				scanf("%c",&letter);
+				binarySearchLetter(word,letter);
+				break;
+			case 6:
+				inputWords(words,size);
+				printf("Enter a word to search\n ");
+				scanf("%s",word);
+				binarySearchWord(words,size,word);
+				break;
+			case 7:
+				printf("Thank you");
+				break;
+			default:
+				printf("Invalid Choice");
+		}
+	}while(ch!=7);
+	return 0;
+}
+[8:02 am, 25/5/2024] George Washington Cs Sir: /*
+	int a;	How many values can we store in a?
+				Answer: One
+
+	int a[5];	Array. How many values can we store in a?
+					Answer: Five. Same type of five values
+*/
+/*
+										STRUCTURE
+										---------
+structure allows us to store more than one value of dissimilar data
+
+we have created an UDT (User defined Type)
+*/
+/*
+    struct <Structure Name>
+    {
+        variable List;
+        variable List;
+            "
+            "
+    };  Structue MUST END with SEMI COLON(;)
+*/
+
+#include<stdio.h>
+struct Student
+{
+	int rno,std;				//Structure variables are declared in public
+	char name[21];
+	float mat,sci,com,tot,avg;
+};
+
+int main()
+{
+	struct Student s;
+
+	printf("Enter Roll Number ");
+	scanf("%d",&s.rno);
+	fflush(stdin);
+	printf("Enter Your Name ");
+	scanf("%s",s.name);
+	fflush(stdin);
+	printf("Enter Standard ");
+	scanf("%d",&s.std);
+	fflush(stdin);
+	printf("Enter Maths Marks ");
+	scanf("%f",&s.mat);
+	fflush(stdin);
+	printf("Enter Science Marks ");
+	scanf("%f",&s.sci);
+	fflush(stdin);
+	printf("Enter Computer Marks ");
+	scanf("%f",&s.com);
+	fflush(stdin);
+
+	s.tot=s.mat+s.sci+s.com;
+	s.avg=s.tot/3.0;
+	printf("\n\n\n                            MY SCHOOL NAME \n");
+	printf("                            -------------- \n");
+
+	printf("Standard Roll_Number Name                 Maths  Science Computer Total  Average\n");
+
+	printf("%-8d %-11d %-20s %-6.2f %-7.2f %-8.2f %-6.2f %-7.2f \n",s.std,s.rno,s.name,s.mat,s.sci,s.com,s.tot,s.avg);
+
+	return 0;
+
+}
+[8:10 am, 25/5/2024] George Washington Cs Sir: #include<stdio.h>
+#include<conio.h>
+struct Student
+{
+	int rno;
+	char name[21];
+	int std;
+	float mat,sci,com,tot,avg;
+};
+
+void display(struct Student s)		//call by value
+{
+	printf("\n\n\n                            MY SCHOOL NAME \n");
+	printf("                            -------------- \n");
+
+	printf("Standard Roll_Number Name                 Maths Science Computer Total  Average\n");
+	printf("%-8d %-11d %-20s %-5.2f %-7.2f %-8.2f %-5.2f  %-7.2f\n",s.std,s.rno,s.name,s.mat,s.sci,s.com,s.tot,s.avg);
+}
+
+int main()
+{
+	struct Student s;
+	printf("Enter Roll Number ");
+	scanf("%d",&s.rno);
+	fflush(stdin);                                  
+	printf("Enter Your Name ");
+	scanf("%s",s.name);
+	fflush(stdin);
+	printf("Enter Standard ");
+	scanf("%d",&s.std);
+	fflush(stdin);
+	printf("Enter Maths Marks ");
+	scanf("%f",&s.mat);
+	fflush(stdin);
+	printf("Enter Science Marks ");
+	scanf("%f",&s.sci);
+	fflush(stdin);
+	printf("Enter Computer Marks ");
+	scanf("%f",&s.com);
+	fflush(stdin);
+
+	s.tot=s.mat+s.sci+s.com;
+	s.avg=s.tot/3.0;
+
+	display(s);
+
+	return 0;
+}
+[8:17 am, 25/5/2024] George Washington Cs Sir: //typedef allows us to create alias (Alternate name)
+
+#include<stdio.h>
+
+struct Student
+{
+	int rno;
+	char name[21];
+	int std,mat,sci,com,tot,avg;
+};
+
+typedef struct Student Stud;  //typedef float F;
+										//	F a,b,c;   means float a,b,c;
+void display(Stud s)
+{
+	printf("\n\n\n                            MY SCHOOL NAME \n");
+	printf("                            -------------- \n");
+	printf("Standard Roll_Number Name                 Maths Science Computer Total Average\n");
+	printf("%-8d %-11d %-20s %-5d %-7d %-8d %-5d %-7d\n",s.std,s.rno,s.name,s.mat,s.sci,s.com,s.tot,s.avg);
+}
+
+int main()
+{
+	Stud s;
+	printf("Enter Roll Number ");
+	scanf("%d",&s.rno);
+	fflush(stdin);
+	printf("Enter Your Name ");
+	scanf("%s",s.name);
+	fflush(stdin);
+	printf("Enter Standard ");
+	scanf("%d",&s.std);
+	fflush(stdin);
+	printf("Enter Maths Marks ");
+	scanf("%d",&s.mat);
+	fflush(stdin);
+	printf("Enter Science Marks ");
+	scanf("%d",&s.sci);
+	fflush(stdin);
+	printf("Enter Computer Marks ");
+	scanf("%d",&s.com);
+	fflush(stdin);
+
+	s.tot=s.mat+s.sci+s.com;
+	s.avg=s.tot/3.0;
+
+	display(s);
+
+	return 0;
+}
+[8:27 am, 25/5/2024] George Washington Cs Sir: //Nested Structure
+#include<stdio.h>
+
+struct Address
+{
+	char build[16],street[16],city[11];
+};
+
+struct Student
+{
+	int rno;
+	char name[21];
+	struct Address add;
+	int std,mat,sci,com,tot,avg;
+};
+typedef struct Student Stud;	//Creating alias
+
+void display(Stud s)
+{
+	printf("\n\n\n                            MY SCHOOL NAME \n");
+	printf("                            -------------- \n");
+	printf("Standard Roll_Number Name          Address           Maths Science Computer Total Average\n");
+	printf("%-8d %-11d %-13s %-10s %-1c. %-1c.  %-5d %-7d %-8d %-5d %-7d\n",s.std,s.rno,s.name,s.add.build,s.add.street[0],s.add.city[0],s.mat,s.sci,s.com,s.tot,s.avg);
+}
+
+int main()
+{
+	Stud s;
+	printf("Enter Roll Number ");
+	scanf("%d",&s.rno);
+	fflush(stdin);
+	printf("Enter Your Name ");
+	scanf("%s",s.name);
+	fflush(stdin);
+	printf("Enter Your Address (Building_Name Street_Name City_Name) ");
+	scanf("%s",s.add.build);
+	scanf("%s",s.add.street);
+	scanf("%s",s.add.city);
+	printf("Enter Standard ");
+	scanf("%d",&s.std);
+	fflush(stdin);
+	printf("Enter Maths Marks ");
+	scanf("%d",&s.mat);
+	fflush(stdin);
+	printf("Enter Science Marks ");
+	scanf("%d",&s.sci);
+	fflush(stdin);
+	printf("Enter Computer Marks ");
+	scanf("%d",&s.com);
+	fflush(stdin);
+
+	s.tot=s.mat+s.sci+s.com;
+	s.avg=s.tot/3.0;
+
+	display(s);
+
+	return 0;
+}
+[8:33 am, 25/5/2024] George Washington Cs Sir: //typedef allows us to create alias (Alternate name)
+//Array of structure allows to store more values in one vaiable
+
+#include<stdio.h>
+
+struct Student
+{
+	int rno;
+	char name[21];
+	int std,mat,sci,com,tot,avg;
+};
+typedef struct Student Stud;  //typedef float F;
+
+void display(Stud s[])  //Array of structure is call by reference
+{
+	int i;
+	printf("\n\n\n                            MY SCHOOL NAME \n");
+	printf("                            -------------- \n");
+	printf("Standard Roll_Number Name                 Maths Science Computer Total Average\n");
+	for(i=0;i<3;i++)
+	{
+		printf("%-8d %-11d %-20s %-5d %-7d %-8d %-5d %-7d\n",s[i].std,s[i].rno,s[i].name,s[i].mat,s[i].sci,s[i].com,s[i].tot,s[i].avg);
+	}
+}
+
+int main()
+{
+	int i;
+	Stud s[3];			//s[rno=1,name="Dhruv",std=12,mat=100.0,sci=99.0,com=98.0,tot=0.0,avg0.0]
+							//									0
+							// [rno=2,name="George",std=10,mat=10.0,sci=9.0,com=8.0,tot=0.0,avg0.0]
+							//									1
+							// [rno=3,name="Karthik",std=11,mat=90.0,sci=80.0,com=70.0,tot=0.0,avg0.0]
+							//									2
+	for(i=0;i<3;i++)
+	{
+		printf("Enter Roll Number ");
+		scanf("%d",&s[i].rno);
+		fflush(stdin);
+		printf("Enter Your Name ");
+		scanf("%s",s[i].name);
+		fflush(stdin);
+		printf("Enter Standard ");
+		scanf("%d",&s[i].std);
+		fflush(stdin);
+		printf("Enter Maths Marks ");
+		scanf("%d",&s[i].mat);
+		fflush(stdin);
+		printf("Enter Science Marks ");
+		scanf("%d",&s[i].sci);
+		fflush(stdin);
+		printf("Enter Computer Marks ");
+		scanf("%d",&s[i].com);
+		fflush(stdin);
+
+		s[i].tot=s[i].mat+s[i].sci+s[i].com;
+		s[i].avg=s[i].tot/3.0;
+	}
+	display(s);
+
+	return 0;
+}
